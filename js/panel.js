@@ -1,12 +1,27 @@
 const controllersList = document.querySelector("#controllers ul");
 
 chrome.devtools.inspectedWindow.eval(
-  "Array.from(document.querySelectorAll('[data-controller]')).map(e => ({ tag: e.tagName, controller: e.dataset.controller }))",
-  (result, error) => {
-    result.forEach(element => {
+  `window.application.controllers.map(c => (
+     { 
+       identifier: c.identifier, 
+       element: c.element, 
+       targets: Array.from(c.targets).map(t => ( 
+         { 
+           element: t.element, 
+           identifier: t.identifier
+         }
+       ))
+     }))`,
+  (controllers, error) => {
+    console.log(controllers);
+    controllers.forEach(controller => {
       controllersList.insertAdjacentHTML(
         "beforeend",
-        `<li>${element.tag}: ${element.controller}</li>`
+        `<li>${controller.identifier}
+           <ul>
+             ${controller.targets.map(t => `<li>${t.identifier}</li>`)}
+           </ul>
+         </li>`
       );
     });
   }
