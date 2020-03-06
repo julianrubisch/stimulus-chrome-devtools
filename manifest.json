@@ -1,0 +1,8 @@
+{
+    "manifest_version" : 2,
+    "name" : "StimulusJS Dev Tools",
+    "version" : "0.1",
+    "description" : "Development Utilities for StimulusJS",
+    "author" : "Julian Rubisch",
+    "devtools_page" : "html/devtools.html"
+}
